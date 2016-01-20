@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Period</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.name %></td>
+        <td><%= course.price %></td>
+        <% if course.period == 1 %>
+          <td>Matutino</td>
+        <% end %>
+        <% if course.period == 2 %>
+          <td>Vespertino</td>
+        <% end %>
+        <% if course.period == 3 %>
+          <td>Integral</td>
+        <% end %>
+        <td><%= link_to 'Show', course %></td>
+        <td><%= link_to 'Edit', edit_cours_path(course) %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Course', new_cours_path %>

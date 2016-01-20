@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enrollment_date: 2016-01-20
+  year: 1
+  active: 1
+  paid: 1
+  student_id: 
+  course_id: 
+
+two:
+  enrollment_date: 2016-01-20
+  year: 1
+  active: 1
+  paid: 1
+  student_id: 
+  course_id: 

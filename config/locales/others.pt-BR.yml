@@ -1,0 +1,24 @@
+pt-BR:
+  activerecord:
+    models:
+      student: Aluno
+      course: Curso
+      enrollment: Matrícula
+    attributes:
+      student:
+        name: Nome
+        phone: Número de Telefone
+        birth_date: Data de Nascimento
+        cpf: CPF
+        rg: RG
+      course:
+        name: Nome
+        price: Valor de Inscrição
+        period: Período
+      enrollment:
+        enrollment_date: Data de Matrícula
+        year: Ano
+        active: Ativo
+        paid: Pago
+        student_id: Aluno
+        course_id: Curso

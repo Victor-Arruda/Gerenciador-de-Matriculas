@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @course.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @course.price %>
+</p>
+
+<p>
+  <strong>Period:</strong>
+  <!--<%= @course.period %>-->
+  <% if @course.period == 1 %>
+    <td>Matutino</td>
+  <% end %>
+  <% if @course.period == 2 %>
+    <td>Vespertino</td>
+  <% end %>
+  <% if @course.period == 3 %>
+    <td>Integral</td>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_cours_path(@course) %> |
+<%= link_to 'Back', courses_path %>
