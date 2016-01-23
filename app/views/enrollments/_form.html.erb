@@ -19,6 +19,7 @@
     <%= f.label :year %><br>
     <%= f.number_field :year %>
   </div>
+  <!--
   <div class="field">
     <%= f.label :active %><br>
     <%= f.number_field :active %>
@@ -27,6 +28,7 @@
     <%= f.label :paid %><br>
     <%= f.number_field :paid %>
   </div>
+  -->
   <div class="field">
     <%= f.label :student_id %><br>
     <%= f.collection_select(:student_id, Student.all, :id, :name) %>

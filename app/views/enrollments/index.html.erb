@@ -20,8 +20,18 @@
       <tr>
         <td><%= enrollment.enrollment_date %></td>
         <td><%= enrollment.year %></td>
-        <td><%= enrollment.active %></td>
-        <td><%= enrollment.paid %></td>
+        <% if enrollment.active == 1 %>
+          <td> Ativo </td>
+        <% end %>
+        <% if enrollment.active == 2 %>
+          <td> Inativo </td>
+        <% end %>
+        <% if enrollment.paid == 1 %>
+          <td> Pago </td>
+        <% end %>
+        <% if enrollment.paid == 2 %>
+          <td> Não foi pago </td>
+        <% end %>
         <td><%= enrollment.student.name %></td>
         <td><%= enrollment.course.name %></td>
         <td><%= link_to 'Show', enrollment %></td>
