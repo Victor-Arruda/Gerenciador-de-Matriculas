@@ -25,7 +25,11 @@
   <div class="form-group">
     <%= f.label :year, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :year, :class => 'form-control' %>
+      <%= f.select(:year) do %>
+        <% @years.each do |y| -%>
+            <%= content_tag(:option, y.first, value: y.last) %>
+        <% end %>
+      <% end %>
     </div>
     <%=f.error_span(:year) %>
   </div>

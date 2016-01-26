@@ -18,7 +18,7 @@
   <tbody>
     <% @enrollments.each do |enrollment| %>
       <tr>
-        <td><%= enrollment.enrollment_date %></td>
+        <td><%= link_to enrollment.enrollment_date, enrollment_path(enrollment) %></td>
         <td><%= enrollment.year %></td>
         <% if enrollment.active == 1 %>
           <td> Ativo</td>
@@ -32,8 +32,8 @@
         <% if enrollment.paid == 2 %>
           <td>Não foi pago</td>
         <% end %>
-        <td><%= link_to enrollment.student.name, enrollment_path(enrollment) %></td>
-        <td><%= enrollment.course.name %></td>
+        <td><%= link_to enrollment.student.name, student_path(enrollment.student) %></td>
+        <td><%= link_to enrollment.course.name, cours_path(enrollment.course) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_enrollment_path(enrollment), :class => 'btn btn-default btn-xs' %>
