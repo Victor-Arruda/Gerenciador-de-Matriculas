@@ -1,49 +1,57 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Enrollments</h1>
-
-<table>
+<%- model_class = Enrollment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Enrollment date</th>
-      <th>Year</th>
-      <th>Active</th>
-      <th>Paid</th>
-      <th>Student</th>
-      <th>Course</th>
-      <th colspan="5"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:enrollment_date) %></th>
+      <th><%= model_class.human_attribute_name(:year) %></th>
+      <th><%= model_class.human_attribute_name(:active) %></th>
+      <th><%= model_class.human_attribute_name(:paid) %></th>
+      <th><%= model_class.human_attribute_name(:student_id) %></th>
+      <th><%= model_class.human_attribute_name(:course_id) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @enrollments.each do |enrollment| %>
       <tr>
+        <td><%= link_to enrollment.id, enrollment_path(enrollment) %></td>
         <td><%= enrollment.enrollment_date %></td>
         <td><%= enrollment.year %></td>
         <% if enrollment.active == 1 %>
-          <td> Ativo </td>
+          <td> Ativo</td>
         <% end %>
-        <% if enrollment.active == 2 %>
-          <td> Inativo </td>
+        <% if enrollment.active ==2 %>
+          <td>Inativo</td>
         <% end %>
         <% if enrollment.paid == 1 %>
-          <td> Pago </td>
+          <td>Pago</td>
         <% end %>
         <% if enrollment.paid == 2 %>
-          <td> Não foi pago </td>
+          <td>Não foi pago</td>
         <% end %>
-        <td><%= enrollment.student.name %></td>
+        <td><%= link_to enrollment.student.name, enrollment_path(enrollment) %></td>
         <td><%= enrollment.course.name %></td>
-        <td><%= link_to 'Show', enrollment %></td>
-        <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
-        <td><%= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Pagamento', enrollment_pay_path(enrollment) %></td>
-        <td><%= link_to 'Desativar', enrollment_deactivate_path(enrollment) %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_enrollment_path(enrollment), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      enrollment_path(enrollment),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+        <td> <%= link_to 'Pagamento', enrollment_pay_path(enrollment), :class => 'btn-default btn-xs' %> </td>
+        <td> <%= link_to 'Cancelar', enrollment_deactivate_path(enrollment), :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn-xs btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Enrollment', new_enrollment_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_enrollment_path,
+            :class => 'btn btn-primary' %>

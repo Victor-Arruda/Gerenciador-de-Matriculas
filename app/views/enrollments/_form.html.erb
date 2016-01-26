@@ -1,47 +1,71 @@
-<%= form_for(@enrollment) do |f| %>
-  <% if @enrollment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+<%= form_for @enrollment, :html => { :class => "form-horizontal enrollment" } do |f| %>
 
-      <ul>
-      <% @enrollment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @enrollment.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @enrollment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :enrollment_date %><br>
-    <%= f.date_select :enrollment_date %>
+  <div class="form-group">
+    <%= f.label :enrollment_date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.date_select :enrollment_date, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:enrollment_date) %>
   </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.select(:year) do %>
-          <% [['2010',2010],['2011',2011],['2012',2012],['2013',2013],['2014',2014],['2015',2015],['2016',2016],['2017',2017],['2018',2018],['2019',2019],['2020', 2020]].each do |y| -%>
-              <%= content_tag(:option, y.first, value: y.last) %>
-          <% end %>
-    <% end %>
+  <div class="form-group">
+    <%= f.label :year, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :year, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:year) %>
   </div>
   <!--
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.number_field :active %>
+  <div class="form-group">
+    <%= f.label :active, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :active, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:active) %>
   </div>
-  <div class="field">
-    <%= f.label :paid %><br>
-    <%= f.number_field :paid %>
+  <div class="form-group">
+    <%= f.label :paid, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :paid, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:paid) %>
   </div>
-  -->
-  <div class="field">
-    <%= f.label :student_id %><br>
-    <%= f.collection_select(:student_id, Student.all, :id, :name) %>
+-->
+  <div class="form-group">
+    <%= f.label :student_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select(:student_id, Student.all, :id, :name, :class => 'form-control') %>
+    </div>
+    <%=f.error_span(:student_id) %>
   </div>
-  <div class="field">
-    <%= f.label :course_id %><br>
-    <%= f.collection_select(:course_id, Course.all, :id, :name) %>
+  <div class="form-group">
+    <%= f.label :course_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select(:course_id, Course.all, :id, :name, :class => 'form-control') %>
+    </div>
+    <%=f.error_span(:course_id) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                enrollments_path, :class => 'btn btn-default' %>
+    </div>
   </div>
+
 <% end %>
