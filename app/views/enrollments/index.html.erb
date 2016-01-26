@@ -11,7 +11,7 @@
       <th>Paid</th>
       <th>Student</th>
       <th>Course</th>
-      <th colspan="3"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -37,6 +37,8 @@
         <td><%= link_to 'Show', enrollment %></td>
         <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
         <td><%= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Pagamento', enrollment_pay_path(enrollment) %></td>
+        <td><%= link_to 'Desativar', enrollment_deactivate_path(enrollment) %></td>
       </tr>
     <% end %>
   </tbody>

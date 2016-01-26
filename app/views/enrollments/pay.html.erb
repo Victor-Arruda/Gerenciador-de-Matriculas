@@ -1,0 +1,16 @@
+<h1>Paying Enrollment</h1>
+
+<%= form_for(@enrollment)do |f| %>
+
+
+  <div class="field">
+    <%= f.label :paid %><br>
+    <%= f.number_field :paid %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @enrollment %> |
+<%= link_to 'Back', enrollments_path %>

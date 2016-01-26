@@ -17,22 +17,6 @@ class Enrollment < ActiveRecord::Base
     self.paid = 2
   end
 
-  def check_year
-    Enrollment.all.each do |e|
-      if e.student_id == self.student_id and e.year == self.year
-        errors.add(:year, "Já possui matrícula nesse ano!")
-      end
-    end
-  end
-
-  def check_period
-    Enrollment.all.each do |e|
-      if (e.student_id == self.student_id) and (e.course_id == self.course_id)
-        errors.add(:period, "Já possui matrícula nesse período")
-      end
-    end
-  end
-
   def can_do_the_enrollment
     #code
     student.enrollments.each do |enrollment|

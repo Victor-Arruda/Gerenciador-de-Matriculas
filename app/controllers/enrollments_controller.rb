@@ -21,6 +21,25 @@ class EnrollmentsController < ApplicationController
   def edit
   end
 
+  def pay
+    @enrollment = Enrollment.find(params[:enrollment_id])
+    @enrollment.update_attribute(:paid, 1)
+    redirect_to @enrollment, notice: 'Matricula paga!'
+  end
+
+  def deactivate
+    @enrollment = Enrollment.find(params[:enrollment_id])
+    @enrollment.update_attribute(:active, 2)
+    redirect_to @enrollment, notice: 'Matrícula desativada!'
+  end
+
+  # GET /enrollments/1/pay_enrollment
+  def pay_enrollment
+    @enrollment = Enrollment.find(params[:id])
+    @enrollment.update_attribute(:paid, params[:paid])
+    #redirect_to @enrollment, notice: 'Matrícula paga com sucesso.'
+  end
+
   # POST /enrollments
   # POST /enrollments.json
   def create
