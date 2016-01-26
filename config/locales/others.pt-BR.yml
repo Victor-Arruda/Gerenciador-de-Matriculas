@@ -22,3 +22,18 @@ pt-BR:
         paid: Pago
         student_id: Aluno
         course_id: Curso
+  courses:
+    index:
+      edit: Editar
+      destroy: Excluir
+      new: Novo
+  students:
+    index:
+      edit: Editar
+      destroy: Excluir
+      new: Novo
+  enrollments:
+    index:
+      edit: Editar
+      destroy: Excluir
+      new: Novo
