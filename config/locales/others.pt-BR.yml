@@ -1,4 +1,10 @@
 pt-BR:
+  helpers:
+    links:
+      new: Novo
+      back: Voltar
+      edit: Editar
+      destroy: Deletar
   activerecord:
     models:
       student: Aluno

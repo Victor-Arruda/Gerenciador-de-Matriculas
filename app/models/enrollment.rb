@@ -5,7 +5,56 @@ class Enrollment < ActiveRecord::Base
   validates_presence_of :student_id, :course_id, :enrollment_date, :year
   validate :can_do_the_enrollment
 
+  CEDULAS = [100, 50, 10, 5, 1]
+  MOEDAS = [50, 25, 10, 5, 1]
+
+  def melhor_troco(pago)
+    valor = self.course.price.to_f
+    if pago < valor
+      false
+    else
+      troco = pago - valor
+      valor = troco.to_i
+      cedulas = []
+      centavos = []
+      i = 0
+      while(valor != 0 )
+        ct = (valor / Enrollment.CEDULAS[i]).to_i
+        if (ct != 0)
+          valor_cedula = Enrollment.CEDULAS[i]
+          cedulas << ["#{valor_cedula}" => ct]
+          valor = valor % Enrollment.CEDULAS[i]
+        end
+        i += 1
+      end
+
+
+      valor = ((troco - troco.to_i) * 100).round.to_i
+      i = 0
+      while(valor != 0)
+        ct = valor / Enrollment.MOEDAS[i]
+        if (ct != 0 )
+          valor_centavo = Enrollment.MOEDAS[i]
+          centavos << ["#{valor_centavo}" => ct]
+          valor = valor % Enrollment.MOEDAS[i]
+        end
+        i+=1
+      end
+      [cedulas, centavos]
+    end
+  end
+
   private
+
+  def self.MOEDAS
+    MOEDAS
+  end
+
+  def self.CEDULAS
+    CEDULAS
+  end
+
+
 
   def confirm_enrollment
     self.active = 1

@@ -3,6 +3,32 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+<% if flash[:troco].present? %>
+  <fieldset>
+    <legend>
+      Troco
+    </legend>
+
+    <ul>
+
+<h2>Notas</h2>
+  <% flash[:troco][0].each do |valor| %>
+    <li>
+    <%= pluralize(valor[0].first.second, 'nota') %> de <%= valor[0].first.first %>.</li>
+  <% end %>
+  </ul>
+  <ul>
+
+<h2>Moedas</h2>
+  <% flash[:troco][1].each do |valor| %>
+  <li>
+
+<%= pluralize(valor[0].first.second, 'moeda') %> de <%= valor[0].first.first %> .  </li>
+  <% end %>
+    </ul>
+  </fieldset>
+<% end %>
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:enrollment_date) %>:</strong></dt>
   <dd><%= @enrollment.enrollment_date %></dd>

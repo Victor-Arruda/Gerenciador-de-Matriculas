@@ -10,11 +10,11 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments/1
   # GET /enrollments/1.json
   def show
+
   end
 
   # GET /enrollments/new
   def new
-    @years = [['2010', 2010],['2011', 2011],['2012', 2012],['2013', 2013],['2014', 2014],['2015', 2015],['2016', 2016],['2017', 2018],['2019', 2019],['2020', 2020]]
     @enrollment = Enrollment.new
   end
 
@@ -24,8 +24,13 @@ class EnrollmentsController < ApplicationController
 
   def pay
     @enrollment = Enrollment.find(params[:enrollment_id])
-    @enrollment.update_attribute(:paid, 1)
-    redirect_to @enrollment, notice: 'Matricula paga!'
+    if @enrollment.melhor_troco(params[:value].to_f)
+      @enrollment.update_attribute(:paid, 1)
+      @troco = @enrollment.melhor_troco(params[:value].to_f)
+      redirect_to @enrollment, notice: "Matricula paga.  Melhor opção de troco.", flash: { troco: @troco }
+    else
+      redirect_to enrollments_path, alert: "Valor pago menor que o do Curso."
+    end
   end
 
   def deactivate

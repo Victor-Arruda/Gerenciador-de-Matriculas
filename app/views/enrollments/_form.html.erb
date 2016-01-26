@@ -26,8 +26,8 @@
     <%= f.label :year, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.select(:year) do %>
-        <% @years.each do |y| -%>
-            <%= content_tag(:option, y.first, value: y.last) %>
+        <% (2010..2020).each do |y| %>
+            <%= content_tag(:option, y, value: y) %>
         <% end %>
       <% end %>
     </div>

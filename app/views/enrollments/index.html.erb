@@ -18,7 +18,7 @@
   <tbody>
     <% @enrollments.each do |enrollment| %>
       <tr>
-        <td><%= link_to enrollment.enrollment_date, enrollment_path(enrollment) %></td>
+        <td><%= link_to l(enrollment.enrollment_date), enrollment_path(enrollment) %></td>
         <td><%= enrollment.year %></td>
         <% if enrollment.active == 1 %>
           <td> Ativo</td>
@@ -33,7 +33,7 @@
           <td>Não foi pago</td>
         <% end %>
         <td><%= link_to enrollment.student.name, student_path(enrollment.student) %></td>
-        <td><%= link_to enrollment.course.name, cours_path(enrollment.course) %></td>
+        <td><%= link_to enrollment.course.name, cours_path(enrollment.course) %> - Valor: <%= number_to_currency enrollment.course.price %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_enrollment_path(enrollment), :class => 'btn btn-default btn-xs' %>
@@ -43,7 +43,15 @@
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
         </td>
-        <td> <%= link_to 'Pagamento', enrollment_pay_path(enrollment), :class => 'btn-default btn-xs' %> </td>
+        <td><% if enrollment.active == 1 and enrollment.paid == 2 %>
+            <%=  form_tag(enrollment_pay_path(enrollment)) do |f|%>
+            <%= number_field_tag :value, nil, step: 0.01 %>
+            <%= submit_tag "Pagar", data: {confirm: "Você realmente deseja pagar a matricula de #{enrollment.student.name}?"} %>
+            <% end %>
+          <% else %>
+            Não é possível pagar.
+          <% end %>
+         </td>
         <td> <%= link_to 'Cancelar', enrollment_deactivate_path(enrollment), :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn-xs btn-danger' %></td>
       </tr>
     <% end %>

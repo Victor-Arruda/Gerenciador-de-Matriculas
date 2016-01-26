@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   #post 'enrollments/:id/pay_enrollment' => 'enrollments#pay_enrollment', :as => :pay_enrollment
   #post 'enrollments/update_enrollment/:id' => 'enrollments#update_enrollment'
   resources :enrollments do
-    get 'pay' => 'enrollments#pay'
+    post 'pay' => 'enrollments#pay'
     get 'deactivate' => 'enrollments#deactivate'
   end
   # The priority is based upon order of creation: first created -> highest priority.
