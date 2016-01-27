@@ -1,4 +1,20 @@
 <%- model_class = Enrollment -%>
+<%= form_tag enrollments_path, method: :get do |f| %>
+  <p>
+    Tipo: <%= select_tag :tipo, options_for_select(["", "Ano", "Aluno", "Curso"]) %>
+  </p>
+  <p>
+    Pesquisa: <%= text_field_tag :pesquisa %>
+  </p>
+  <p>
+    Pagamento: <%= select_tag :status, options_for_select(["Todos", "Pendente", "Pago"]) %>
+  </p>
+
+  <p>
+    <%= submit_tag "Pesquisar" %>
+  </p>
+
+<% end %>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>

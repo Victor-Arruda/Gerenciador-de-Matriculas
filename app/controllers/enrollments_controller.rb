@@ -4,7 +4,7 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments
   # GET /enrollments.json
   def index
-    @enrollments = Enrollment.all
+    @enrollments = Enrollment.search(params[:tipo], params[:pesquisa], params[:status])
   end
 
   # GET /enrollments/1
@@ -27,7 +27,7 @@ class EnrollmentsController < ApplicationController
     if @enrollment.melhor_troco(params[:value].to_f)
       @enrollment.update_attribute(:paid, 1)
       @troco = @enrollment.melhor_troco(params[:value].to_f)
-      redirect_to @enrollment, notice: "Matricula paga.  Melhor opção de troco.", flash: { troco: @troco }
+      redirect_to @enrollment
     else
       redirect_to enrollments_path, alert: "Valor pago menor que o do Curso."
     end
@@ -53,7 +53,7 @@ class EnrollmentsController < ApplicationController
 
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully created.' }
+        format.html { redirect_to @enrollment, notice: 'Matrícula criada com sucesso.' }
         format.json { render :show, status: :created, location: @enrollment }
       else
         format.html { render :new }
@@ -67,7 +67,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to @enrollment, notice: 'Matrícula editada com sucesso.' }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
@@ -81,7 +81,7 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to enrollments_url, notice: 'Enrollment was successfully destroyed.' }
+      format.html { redirect_to enrollments_url, notice: 'Matrícula excluída com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -5,6 +5,7 @@ pt-BR:
       back: Voltar
       edit: Editar
       destroy: Deletar
+      cancel: Cancelar
   activerecord:
     models:
       student: Aluno

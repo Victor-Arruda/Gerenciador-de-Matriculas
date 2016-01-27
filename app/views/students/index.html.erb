@@ -18,7 +18,7 @@
       <tr>
         <td><%= student.cpf %></td>
         <td><%= student.rg %></td>
-        <td><%= student.birth_date %></td>
+        <td><%= l(student.birth_date) %></td>
         <td><%= link_to student.name, student_path(student) %></td>
         <td><%= student.phone %></td>
         <td>

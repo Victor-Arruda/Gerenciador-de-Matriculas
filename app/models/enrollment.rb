@@ -8,6 +8,28 @@ class Enrollment < ActiveRecord::Base
   CEDULAS = [100, 50, 10, 5, 1]
   MOEDAS = [50, 25, 10, 5, 1]
 
+  def self.search(tipo, valor, status)
+    if(tipo.present? or status.present?)
+      to_return = all
+      if valor.present?
+        if tipo == "Ano"
+          to_return = all.where(year: valor)
+        elsif tipo == "Aluno"
+          to_return = all.joins(:student).where("students.name ILIKE '%#{valor}%'")
+        elsif tipo == "Curso"
+          to_return = all.joins(:course).where("courses.name ILIKE '%#{valor}%'")
+        end
+      end
+      if status.present?
+        return to_return.where(paid: 1) if status == "Pago"
+        return to_return.where(paid: 2) if status == "Pendente"
+        return to_return if status = "Todos"
+      end
+    else
+      all.where(active: 1)
+    end
+  end
+
   def melhor_troco(pago)
     valor = self.course.price.to_f
     if pago < valor
@@ -69,7 +91,9 @@ class Enrollment < ActiveRecord::Base
   def can_do_the_enrollment
     #code
     student.enrollments.each do |enrollment|
-      errors.add(:base, 'Aluno possui matrícula ativa em curso de mesmo período e ano informado!') if ((enrollment.year == self.year and enrollment.course.period == self.course.period) or (enrollment.year == self.year and (enrollment.course.period == 1 or enrollment.course.period == 2) and self.course.period == 3) or (enrollment.year == self.year and enrollment.course.period == 3))
+      if enrollment.active == 1
+        errors.add(:base, 'Aluno possui matrícula ativa em curso de mesmo período e ano informado!') if ((enrollment.year == self.year and enrollment.course.period == self.course.period) or (enrollment.year == self.year and (enrollment.course.period == 1 or enrollment.course.period == 2) and self.course.period == 3) or (enrollment.year == self.year and enrollment.course.period == 3))
+      end
     end
   end
 end
