@@ -8,4 +8,13 @@ class Student < ActiveRecord::Base
     require 'cpf_cnpj'
     errors.add(:cpf, 'Esse CPF não é válido!') unless CPF.valid? self.cpf
   end
+
+  def bissextile_year
+    year = self.birth_date.year
+    if(year % 4 == 0 and year % 100 != 0 or year % 400 == 0)
+      true
+    else
+       false
+    end
+  end
 end

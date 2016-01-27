@@ -25,10 +25,10 @@ class StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params)
-
+    msg = @student.bissextile_year ? "Este estudante nasceu em um ano bissexto" : ""
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Aluno cadastrado com sucesso.' }
+        format.html { redirect_to @student, notice: "Aluno cadastrado com sucesso. #{msg}"  }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }

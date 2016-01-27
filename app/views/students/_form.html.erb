@@ -32,7 +32,7 @@
   <div class="form-group">
     <%= f.label :birth_date, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.date_select :birth_date, :class => 'form-control' %>
+      <%= f.date_select :birth_date, {:include_blank => true, :start_year => (Time.now.year - 50).to_i} %>
     </div>
     <%=f.error_span(:birth_date) %>
   </div>

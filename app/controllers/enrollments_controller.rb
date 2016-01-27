@@ -27,7 +27,7 @@ class EnrollmentsController < ApplicationController
     if @enrollment.melhor_troco(params[:value].to_f)
       @enrollment.update_attribute(:paid, 1)
       @troco = @enrollment.melhor_troco(params[:value].to_f)
-      redirect_to @enrollment
+      redirect_to @enrollment, flash: {troco: @troco}
     else
       redirect_to enrollments_path, alert: "Valor pago menor que o do Curso."
     end
